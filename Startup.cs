@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using BasketService.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
+using StackExchange.Redis;
 
 namespace BasketService
 {
@@ -37,6 +31,14 @@ namespace BasketService
                     Version = "v1"
                 });
             });
+            //TODO:
+            services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddTransient<IBasketRepository, BasketRepository>();
+            services.AddTransient<IBasketRepository, BasketRepository>();
+
+            //TODO:
+            var redis = ConnectionMultiplexer.Connect("172.22.0.1");
+            services.AddScoped(s => redis.GetDatabase());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
