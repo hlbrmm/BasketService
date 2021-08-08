@@ -8,13 +8,14 @@ namespace BasketService.Repositories
     public class BasketRepository : IBasketRepository
     {
         private readonly IDatabase _database;
-        //private readonly ILogger _logger;
+        private readonly ILogger _logger;
 
-        public BasketRepository(IDatabase database)
+        public BasketRepository(IDatabase database, ILogger logger)
         {
             _database = database;
-            //_logger = logger;
+            _logger = logger;
         }
+
         public bool DeleteBasket(string userName)
         {
             return _database.KeyDelete(userName);
@@ -24,34 +25,22 @@ namespace BasketService.Repositories
         {
             var customerBasket = _database.StringGet(userName);
 
-            if (customerBasket.IsNullOrEmpty)
+            if (customerBasket.HasValue)
             {
-                //_logger.LogInformation("GetBasket - Basket does not exist! UserName : {0}" + userName);
-                return null;
-            }
-            else
-            {
-                //_logger.LogInformation("GetBasket - Success! UserName : {0}", userName);
                 return JsonConvert.DeserializeObject<Basket>(customerBasket);
+            }
+            {
+                _logger.LogInformation("GetBasket Repository returned null. userName : {0}", userName);
+                return null;
             }
         }
 
         public Basket UpdateBasket(Basket basket)
         {
             string serializedBasket = JsonConvert.SerializeObject(basket);
-
             var success = _database.StringSet(basket.userName, serializedBasket);
 
-            if (success)
-            {
-                //_logger.LogInformation("Basket updated successfully! Username: {0}", basket.userName);
-                return this.GetBasket(basket.userName);
-            }
-            else
-            {
-                //_logger.LogInformation("Basket update error! Username: {0}", basket.userName);
-                return null;
-            }
+            return success ? this.GetBasket(basket.userName) : null;
         }
     }
 }

@@ -2,8 +2,8 @@
 {
     public class BasketInfo
     {
-        public string SubTotal { get; set; }
-        public string Shipping { get; set; }
-        public string Total { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal Shipping { get; set; }
+        public decimal Total { get; set; }
     }
 }

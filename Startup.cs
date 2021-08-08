@@ -1,9 +1,14 @@
+using System.Linq.Expressions;
+using BasketService.Controllers;
 using BasketService.Repositories;
+using BasketService.Service;
+using Confluent.Kafka;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using StackExchange.Redis;
 
 namespace BasketService
@@ -20,6 +25,10 @@ namespace BasketService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var serviceProvider = services.BuildServiceProvider();
+            var logger = serviceProvider.GetService<ILogger<BasketController>>();
+            services.AddSingleton(typeof(ILogger), logger);
+
             services.AddControllers();
 
             services.AddSwaggerGen(options =>
@@ -36,9 +45,20 @@ namespace BasketService
             services.AddTransient<IBasketRepository, BasketRepository>();
             services.AddTransient<IBasketRepository, BasketRepository>();
 
+            services.AddScoped<IBasketServiceV1, BasketServiceV1>();
+            services.AddTransient<IBasketServiceV1, BasketServiceV1>();
+
+
             //TODO:
-            var redis = ConnectionMultiplexer.Connect("172.22.0.1");
+            //var redis = ConnectionMultiplexer.Connect("172.22.0.1");
+            var redis = ConnectionMultiplexer.Connect("172.28.48.1");
+
             services.AddScoped(s => redis.GetDatabase());
+
+            var producerConfig = new ProducerConfig();
+            Configuration.Bind("producer", producerConfig);
+
+            services.AddSingleton<ProducerConfig>(producerConfig);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
