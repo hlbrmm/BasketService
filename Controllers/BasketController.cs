@@ -1,7 +1,6 @@
 ﻿using System;
 using BasketService.Exceptions;
 using BasketService.Models;
-using BasketService.Repositories;
 using BasketService.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

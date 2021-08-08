@@ -1,5 +1,4 @@
 ﻿using System;
-using BasketService.Exceptions;
 
 namespace BasketService.Exceptions
 {
