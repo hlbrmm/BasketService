@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using BasketService.Exceptions;
+using BasketService.Helpers.ExceptionMessages;
 
 namespace BasketService.Service
 {
@@ -37,7 +39,7 @@ namespace BasketService.Service
 
         public Basket UpdateBasket(Basket basket)
         {
-            //todo: validasyon:
+            requestValidatorV1.ValidateBasket(basket);
 
             return _basketRepository.UpdateBasket(basket);
         }
@@ -105,7 +107,7 @@ namespace BasketService.Service
             }
             else
             {
-                //todo: basketitem doest not exist
+                throw new BusinessException(ExceptionMessages.BASKETITEM_DOES_NOT_EXIST_IN_BASKET.Key, ExceptionMessages.BASKETITEM_DOES_NOT_EXIST_IN_BASKET.Value);
             }
 
             userBasket = CalculateBasketInfo(userBasket);

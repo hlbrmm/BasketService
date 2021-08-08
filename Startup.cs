@@ -40,7 +40,7 @@ namespace BasketService
                     Version = "v1"
                 });
             });
-            //TODO:
+
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddTransient<IBasketRepository, BasketRepository>();
             services.AddTransient<IBasketRepository, BasketRepository>();
@@ -48,9 +48,6 @@ namespace BasketService
             services.AddScoped<IBasketServiceV1, BasketServiceV1>();
             services.AddTransient<IBasketServiceV1, BasketServiceV1>();
 
-
-            //TODO:
-            //var redis = ConnectionMultiplexer.Connect("172.22.0.1");
             var redis = ConnectionMultiplexer.Connect("172.28.48.1");
 
             services.AddScoped(s => redis.GetDatabase());

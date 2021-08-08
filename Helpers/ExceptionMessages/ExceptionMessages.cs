@@ -9,5 +9,7 @@ namespace BasketService.Helpers.ExceptionMessages
         public static readonly KeyValue QUANTITY_SHOULD_BE_GREATER_THAN_ZERO = new KeyValue("QUANTITY_SHOULD_BE_GREATER_THAN_ZERO", "Ürün sayısı 0'dan büyük olmalıdır.");
         public static readonly KeyValue PRICE_SHOULD_BE_GREATER_THAN_ZERO = new KeyValue("PRICE_SHOULD_BE_GREATER_THAN_ZERO", "Ürün fiyatı 0'dan büyük olmalıdır.");
         public static readonly KeyValue NULL_BASKET_ITEM_TITLE = new KeyValue("NULL_BASKET_ITEM_TITLE", "Ürün başlığı hatalı.");
+        public static readonly KeyValue BASKETITEM_DOES_NOT_EXIST_IN_BASKET = new KeyValue("BASKETITEM_DOES_NOT_EXIST_IN_BASKET", "Ürün sepetinizede bulunmuyor.");
+
     }
 }
