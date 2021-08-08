@@ -1,6 +1,6 @@
-﻿using System;
-using BasketService.Exceptions;
+﻿using BasketService.Exceptions;
 using BasketService.Models;
+using System;
 
 namespace BasketService.Helpers.Validators
 {

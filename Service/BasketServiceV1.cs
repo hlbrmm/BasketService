@@ -1,12 +1,12 @@
-﻿using BasketService.Helpers.Validators;
+﻿using BasketService.Exceptions;
+using BasketService.Helpers.ExceptionMessages;
+using BasketService.Helpers.Validators;
 using BasketService.Models;
 using BasketService.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using BasketService.Exceptions;
-using BasketService.Helpers.ExceptionMessages;
 
 namespace BasketService.Service
 {

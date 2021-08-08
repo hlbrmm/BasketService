@@ -1,9 +1,9 @@
-﻿using System;
-using BasketService.Exceptions;
+﻿using BasketService.Exceptions;
 using BasketService.Models;
 using BasketService.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace BasketService.Controllers
 {
