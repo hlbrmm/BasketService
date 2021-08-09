@@ -47,7 +47,7 @@ namespace BasketService
             services.AddScoped<IBasketServiceV1, BasketServiceV1>();
             services.AddTransient<IBasketServiceV1, BasketServiceV1>();
 
-            var redis = ConnectionMultiplexer.Connect("172.28.48.1");
+            var redis = ConnectionMultiplexer.Connect("172.31.240.1");
 
             services.AddScoped(s => redis.GetDatabase());
 
